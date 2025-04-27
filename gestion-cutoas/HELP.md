@@ -7,9 +7,9 @@ Este proyecto consiste en el desarrollo de una API RESTful utilizando Spring Boo
 ## Requisitos Funcionales
 
 1.  **Gestión de Socios:**
-    * Crear nuevos socios con información básica (nombre, apellido, número de socio único, fecha de alta, email, teléfono).
+    * Crear nuevos socios con información básica (nombre, apellido, dni, fecha de alta, email, teléfono).
     * Obtener la lista de todos los socios.
-    * Obtener los detalles de un socio específico por su ID.
+    * Obtener los detalles de un socio específico por su ID, su ID será el DNI.
     * Actualizar la información de un socio existente.
     * Eliminar un socio.
     * Implementar paginación y ordenamiento para la lista de socios.

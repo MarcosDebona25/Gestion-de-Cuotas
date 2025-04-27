@@ -1,0 +1,76 @@
+Esta API está realizada con el objetivo de consolidar los conocimientos aprendidos durante el curso de Spring Boot:Beginner to Guru, de John Thompson. Se trata de Gestión de Cuotas de un club deportivo, ya que, oportunamente, vivo muy cerca de uno.
+Desde mi experiencia: uno se registra como socio, puede hacer varias disciplinas (o una sola), se paga cuota socio + cuota correspondiente a cada actividad. Es un solo pago, no se aceptan pagos parciales, se registra la fecha, son pagos mensuales, te identificas como socio con el DNI.
+
+Anotaciones considerables:
+- Un socio pagas cuotas mensuales (relación Socio-Cuota).
+- Cada cuota incluye: cuota social + tarifa por la disciplina.
+- Cada pago registra el método de pago y el monto (social + disciplina + recargo (si lo hubiera)).
+- Como solo nos interesa la gestión de cuotas, no va a haber una relación bidireccional entre Socio y Disciplina, eso quiere decir que solo nos interesa saber las disciplinas que hace un socio, no todos los socios que hacen una X disciplina.
+- Se puede obtener la lista de disciplinas de un socio a través de la relación con cuota, y cuota con disciplina. Ya que un socio solo puede realizar las disciplinas por las que pagó.
+
+DESCRIPCION DE LA API - GESTION DE CUOTAS CLUB DEPORTIVO
+
+ENTIDADES PRINCIPALES:
+
+1. SOCIO
+- Identificado por DNI
+- Atributos: nombre, apellido, email, telefono, fechaAlta, estado (activo/inactivo)
+- Relacion: Un socio tiene muchas cuotas (1 a *)
+
+2. CUOTA
+- Representa el pago mensual de un socio
+- Atributos: fecha, estado (PENDIENTE/PAGADA/VENCIDA)
+- Relaciones:
+  * Pertenece a un socio (* a 1)
+  * Incluye una CuotaSocial (1 a 1)
+  * Tiene un Pago asociado (1 a 1)
+  * Contiene varias Disciplinas (1 a *)
+
+3. CUOTA SOCIAL
+- Costo fijo de membresia
+- Atributos: monto, fechaInicio
+
+4. DISCIPLINA
+- Actividad deportiva ofrecida
+- Atributos: nombre, descripcion
+- Relacion: Cada disciplina tiene una Tarifa asociada (1 a 1)
+
+5. TARIFA
+- Costo de una disciplina
+- Atributos: descripcion, monto
+
+6. PAGO
+- Registro de transaccion
+- Atributos: fechaPago, montoPagado, metodoPago
+
+ENUMS:
+
+- EstadoCuota: PENDIENTE, PAGADA, VENCIDA
+- MetodoPago: EFECTIVO, TARJETA_CREDITO, TARJETA_DEBITO, TRANSFERENCIA
+
+FLUJO PRINCIPAL:
+
+1. Registro de Socio
+   - POST /socios {datos personales}
+
+2. Generacion de Cuota Mensual
+   - POST /cuotas {socioId, disciplinas[]}
+   - Calcula automaticamente:
+     * Cuota social vigente
+     * Suma de tarifas de disciplinas
+
+3. Registro de Pago
+   - POST /pagos {cuotaId, metodoPago}
+   - Actualiza estado de cuota a PAGADA
+
+RELACIONES UNIDIRECCIONALES:
+
+- Socio -> Cuota: Para consultar cuotas por socio
+- Cuota -> Disciplina: Para saber actividades incluidas
+- Disciplina -> Tarifa: Para obtener precio actual
+
+REGLA DE NEGOCIO:
+
+- Cada cuota se paga en un solo pago (no parciales)
+- El monto total = cuotaSocial + sum(tarifas disciplinas)
+- Las disciplinas de un socio se obtienen de sus cuotas pagadas

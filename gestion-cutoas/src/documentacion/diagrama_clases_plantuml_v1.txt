@@ -1,0 +1,64 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Socio {
+  + Long dni
+  + String nombre
+  + String apellido
+  + String email
+  + String telefono
+  + LocalDate fechaAlta
+  + boolean activo
+}
+
+class Cuota {
+  + Long id
+  + LocalDate fecha
+  + EstadoCuota estado
+}
+
+class CuotaSocial {
+  + Long id
+  + double monto
+  + LocalDate fechaInicio
+}
+
+class Disciplina {
+  + Long id
+  + String nombre
+  + String descripcion
+}
+
+class Tarifa {
+  + Long id
+  + String descripcion
+  + double monto
+}
+
+class Pago {
+  + Long id
+  + LocalDate fechaPago
+  + double montoPagado
+  + MetodoPago metodoPago
+}
+
+enum EstadoCuota {
+  PENDIENTE
+  PAGADA
+  VENCIDA
+}
+
+enum MetodoPago {
+  EFECTIVO
+  TARJETA_CREDITO
+  TARJETA_DEBITO
+  TRANSFERENCIA
+}
+
+' Relaciones principales
+Socio "1" -- "*" Cuota : tiene
+Cuota "*" -- "1" CuotaSocial : incluye >
+Cuota "1" -- "1" Pago : tiene
+Cuota "1" -- "*" Disciplina : incluye >
+Disciplina "1" -- "1" Tarifa : tiene
+@enduml
