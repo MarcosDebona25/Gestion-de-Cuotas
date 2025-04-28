@@ -2,7 +2,8 @@
 skinparam classAttributeIconSize 0
 
 class Socio {
-  + Long dni
+  + Long id
+  + String dni
   + String nombre
   + String apellido
   + String email

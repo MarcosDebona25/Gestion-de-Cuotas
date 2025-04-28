@@ -1,0 +1,96 @@
+DESCRIPCION DE LA API - GESTION DE CUOTAS CLUB DEPORTIVO
+
+Esta API está realizada con el objetivo de consolidar los conocimientos aprendidos durante el curso de Spring Boot:Beginner to Guru, de John Thompson. Se trata de Gestión de Cuotas de un club deportivo, ya que, oportunamente, vivo muy cerca de uno.
+Desde mi experiencia: uno se registra como socio, puede hacer varias disciplinas (o una sola), se paga cuota de socio + cuota correspondiente a cada actividad. Es un solo pago, no se aceptan pagos parciales, se registra la fecha, son pagos mensuales, te identificas como socio con el DNI.
+
+Anotaciones considerables:
+- Un socio pagas cuotas mensuales (relación Socio-Cuota).
+- Cada cuota incluye: cuota social + tarifa por la disciplina.
+- Cada pago registra el método de pago y el monto (social + disciplina + recargo (si lo hubiera)).
+- Como solo nos interesa la gestión de cuotas, no va a haber una relación bidireccional entre Socio y Disciplina, eso quiere decir que solo nos interesa saber las disciplinas que hace un socio, no todos los socios que hacen una X disciplina.
+- Se puede obtener la lista de disciplinas de un socio a través de la relación con cuota, y cuota con disciplina. Ya que un socio solo puede realizar las disciplinas por las que pagó.
+
+-------------------------------------------------------------------
+LOGICA DE NEGOCIO - API GESTION DE CUOTAS
+
+1. GESTION DE SOCIOS
+-------------------
+- Registrar nuevo socio (validar DNI único)
+- Actualizar datos personales (excepto DNI)
+- Dar de baja/alta socio (campo activo)
+- Buscar socios por:
+  * DNI exacto
+  * Nombre/apellido (like)
+  * Estado (activo/inactivo)
+- Validar que socio esté activo para operaciones
+
+2. GESTION DE DISCIPLINAS Y TARIFAS
+-----------------------------------
+- CRUD disciplinas
+- Asignar/actualizar tarifa a disciplina
+  * Validar que no tenga cuotas asociadas al cambiar tarifa
+- Listar disciplinas disponibles
+- Obtener tarifa vigente por disciplina
+
+3. GESTION DE CUOTAS
+--------------------
+- Generación mensual automática:
+  * Para todos los socios activos
+  * Incluye cuota social vigente
+  * Incluye disciplinas del socio
+- Cálculo automático de monto:
+  * Cuota social + sum(tarifas disciplinas)
+- Validaciones:
+  * Socio debe estar activo
+  * No generar cuota duplicada en mismo mes
+- Cambiar estado (PENDIENTE -> PAGADA/VENCIDA)
+
+4. GESTION DE PAGOS
+-------------------
+- Registrar pago de cuota:
+  * Validar que cuota esté PENDIENTE
+  * Validar monto (debe coincidir con total)
+  * Actualizar estado cuota a PAGADA
+- No permitir pagos parciales
+- Registrar método de pago
+- Generar comprobante (PDF)
+
+5. CONSULTAS Y REPORTES
+-----------------------
+- Historial de cuotas por socio:
+  * Filtrar por año/mes
+  * Filtrar por estado
+- Disciplinas por socio:
+  * Obtener de cuotas pagadas
+- Morosos:
+  * Socios con cuotas vencidas
+- Ingresos mensuales:
+  * Total recaudado por periodo
+
+6. VALIDACIONES ADICIONALES
+--------------------------
+- No eliminar disciplinas con cuotas asociadas
+- No modificar tarifas de cuotas ya generadas
+- Al dar de baja socio:
+  * Cancelar cuotas pendientes
+  * Mantener historial
+- Fechas:
+  * Cuotas generadas los primeros 5 días del mes
+  * Vencimiento a los 15 días
+
+7. ENDPOINTS PRINCIPALES
+------------------------
+- /socios (CRUD + búsquedas)
+- /disciplinas (CRUD)
+- /tarifas (CRUD)
+- /cuotas (generación, consulta)
+- /pagos (registro, comprobante)
+- /reportes (morosos, ingresos)
+
+8. REGLAS DE NEGOCIO CLAVE
+--------------------------
+1. Una cuota = un pago único (no parciales)
+2. Monto = cuota social + sumatoria disciplinas
+3. Disciplinas se heredan de cuotas anteriores
+4. Cuotas vencidas generan mora automática
+5. Cambios en tarifas no afectan cuotas existentes
