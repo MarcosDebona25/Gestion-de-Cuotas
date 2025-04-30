@@ -46,5 +46,5 @@ public class Cuota {
     @JoinTable( name = "cuota_disciplina",
                 joinColumns = @JoinColumn(name = "fk_cuota"),
                 inverseJoinColumns = @JoinColumn(name = "fk_disciplina"))
-    private List<Disciplina> disciplinas;
+    private List<Disciplina> listaDisciplinas;
 }
