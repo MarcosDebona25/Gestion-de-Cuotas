@@ -2,6 +2,7 @@ package com.marcos.gestioncuotas.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.List;
 
 /**
  * @author Marcos Debona
@@ -26,4 +27,5 @@ public class Disciplina {
     @OneToOne
     @JoinColumn(name = "tarifa_id")
     private Tarifa tarifa;
+
 }

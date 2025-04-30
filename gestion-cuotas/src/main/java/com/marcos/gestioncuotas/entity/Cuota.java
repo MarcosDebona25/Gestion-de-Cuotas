@@ -42,9 +42,9 @@ public class Cuota {
     @JoinColumn(name = "pago_id")
     private Pago pago;
 
-    @OneToMany
+    @ManyToMany()
     @JoinTable( name = "cuota_disciplina",
                 joinColumns = @JoinColumn(name = "fk_cuota"),
                 inverseJoinColumns = @JoinColumn(name = "fk_disciplina"))
-    private List<Disciplina> disciplina;
+    private List<Disciplina> disciplinas;
 }

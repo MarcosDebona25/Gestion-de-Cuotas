@@ -1,5 +1,4 @@
 @startuml
-skinparam classAttributeIconSize 0
 
 class Socio {
   + Long id
@@ -60,6 +59,6 @@ enum MetodoPago {
 Socio "1" -- "*" Cuota : tiene
 Cuota "*" -- "1" CuotaSocial : incluye >
 Cuota "1" -- "1" Pago : tiene
-Cuota "1" -- "*" Disciplina : incluye >
+Cuota "*" -- "*" Disciplina : incluye >
 Disciplina "1" -- "1" Tarifa : tiene
 @enduml
