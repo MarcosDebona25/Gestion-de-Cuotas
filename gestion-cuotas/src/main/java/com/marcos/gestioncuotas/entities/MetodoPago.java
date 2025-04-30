@@ -1,4 +1,4 @@
-package com.marcos.gestioncuotas.entity;
+package com.marcos.gestioncuotas.entities;
 
 /**
  * @author Marcos Debona

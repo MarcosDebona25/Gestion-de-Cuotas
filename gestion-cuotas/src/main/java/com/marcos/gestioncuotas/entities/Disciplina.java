@@ -1,8 +1,7 @@
-package com.marcos.gestioncuotas.entity;
+package com.marcos.gestioncuotas.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.List;
 
 /**
  * @author Marcos Debona

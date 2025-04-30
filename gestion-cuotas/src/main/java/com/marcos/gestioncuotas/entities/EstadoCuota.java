@@ -1,6 +1,4 @@
-package com.marcos.gestioncuotas.entity;
-
-import jakarta.persistence.Enumerated;
+package com.marcos.gestioncuotas.entities;
 
 /**
  * @author Marcos Debona
