@@ -1,0 +1,1 @@
+ALTER TABLE tabla_flyway ADD COLUMN campo2 VARCHAR(56);
