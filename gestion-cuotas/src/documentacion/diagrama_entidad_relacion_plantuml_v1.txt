@@ -1,0 +1,70 @@
+@startuml
+
+entity Socio {
+  * id : Long <<PK>>
+  --
+  dni : String
+  nombre : String
+  apellido : String
+  email : String
+  telefono : String
+  fechaAlta : LocalDate
+  activo : boolean
+}
+
+entity Cuota {
+  * id : Long <<PK>>
+  --
+  fecha : LocalDate
+  estado : EstadoCuota
+  socio_id : Long <<FK>>
+  cuota_social_id : Long <<FK>>
+  pago_id : Long <<FK>>
+}
+
+entity CuotaSocial {
+  * id : Long <<PK>>
+  --
+  monto : double
+  fechaInicio : LocalDate
+}
+
+entity Pago {
+  * id : Long <<PK>>
+  --
+  fechaPago : LocalDate
+  montoPagado : double
+  metodoPago : MetodoPago
+}
+
+entity Disciplina {
+  * id : Long <<PK>>
+  --
+  nombre : String
+  descripcion : String
+  tarifa_id : Long <<FK>>
+}
+
+entity Tarifa {
+  * id : Long <<PK>>
+  --
+  descripcion : String
+  monto : double
+}
+
+entity cuota_disciplina {
+  * fk_cuota : Long <<FK>>
+  * fk_disciplina : Long <<FK>>
+}
+
+' Relaciones entre entidades
+Socio ||--o{ Cuota : "tiene"
+Cuota }o--|| CuotaSocial : "usa"
+Cuota ||--|| Pago : "se paga con"
+Disciplina ||--|| Tarifa : "usa"
+
+' Relaciones de la tabla intermedia
+Cuota ||--o{ cuota_disciplina : ""
+Disciplina ||--o{ cuota_disciplina : ""
+
+@enduml

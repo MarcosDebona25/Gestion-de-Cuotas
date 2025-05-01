@@ -13,6 +13,13 @@ Anotaciones considerables:
 -------------------------------------------------------------------
 LOGICA DE NEGOCIO - API GESTION DE CUOTAS
 
+1. GESTION DE TARIFAS
+- CRU. NO se realiza DELETE, pues una disciplina siempre tiene una tarifa relacionada.
+- getAllTarifas()
+- getTarifaById(Long id)
+- updateTarifa(Long id, TarifaDTO tarifa)
+
+
 1. GESTION DE SOCIOS
 -------------------
 - Registrar nuevo socio (validar DNI único)
@@ -27,6 +34,7 @@ LOGICA DE NEGOCIO - API GESTION DE CUOTAS
 2. GESTION DE DISCIPLINAS Y TARIFAS
 -----------------------------------
 - CRUD disciplinas
+- CRU tarifas --> una TARIFA NO se puede eliminar (Delete), ya que una disciplina no puede quedarse sin tarifa alguna
 - Asignar/actualizar tarifa a disciplina
   * Validar que no tenga cuotas asociadas al cambiar tarifa
 - Listar disciplinas disponibles

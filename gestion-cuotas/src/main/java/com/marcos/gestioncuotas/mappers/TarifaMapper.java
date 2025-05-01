@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
  * @author Marcos Debona
  */
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface TarifaMapper {
     Tarifa dtoToEntity(TarifaDTO tarifaDTO);
     TarifaDTO entityToDto(Tarifa tarifa);

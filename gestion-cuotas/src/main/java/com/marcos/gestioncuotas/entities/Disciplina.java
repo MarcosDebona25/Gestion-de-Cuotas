@@ -23,8 +23,7 @@ public class Disciplina {
     private String nombre;
     private String descripcion;
 
-    @OneToOne
+    @OneToOne(optional = false)
     @JoinColumn(name = "tarifa_id")
     private Tarifa tarifa;
-
 }
