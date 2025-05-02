@@ -3,6 +3,9 @@ package com.marcos.gestioncuotas.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Marcos Debona
  */
@@ -20,10 +23,10 @@ public class Disciplina {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
+
     private String nombre;
     private String descripcion;
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "tarifa_id")
-    private Tarifa tarifa;
+    @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL)
+    private List<Tarifa> listaTarifas;
 }

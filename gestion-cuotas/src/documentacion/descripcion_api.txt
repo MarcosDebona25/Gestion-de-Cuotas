@@ -13,32 +13,27 @@ Anotaciones considerables:
 -------------------------------------------------------------------
 LOGICA DE NEGOCIO - API GESTION DE CUOTAS
 
-1. GESTION DE TARIFAS
-- CRU. NO se realiza DELETE, pues una disciplina siempre tiene una tarifa relacionada.
-- getAllTarifas()
+----- GESTION DE TARIFAS -----
+Operaciones: CRU (No se realiza DELETE, ya que una disciplina siempre debe tener una tarifa relacionada).
+Endpoints disponibles:
+- getAllTarifa()
 - getTarifaById(Long id)
-- updateTarifa(Long id, TarifaDTO tarifa)
 
+----- GESTION DE DISCIPLINAS -----
+Operaciones: CRUD
+Endpoints disponibles:
+- getAllDisciplina()
+- getDisciplinaById(Long id)
+- createDisciplina(DisciplinaDTO disciplinaDTO)
+- updateDisciplina(Long id, DisciplinaDTO disciplinaDTO)
+- deleteDisciplina(Long id)
+- addTarifaToDisciplina(Long disciplinaId, TarifaDTO tarifaDTO)
+- getTarifaHistoryByDisciplinaId(Long id)
+Comportamiento especial:
+- Se puede crear una disciplina especificando la tarifa de forma embebida. Luego, la tarifa se crea automáticamente junto con la disciplina.
+- Se puede agregar una nueva tarifa a una disciplina existente, manteniendo el historial de tarifas.
+- Se puede consultar el historial de tarifas de una disciplina específica.
 
-1. GESTION DE SOCIOS
--------------------
-- Registrar nuevo socio (validar DNI único)
-- Actualizar datos personales (excepto DNI)
-- Dar de baja/alta socio (campo activo)
-- Buscar socios por:
-  * DNI exacto
-  * Nombre/apellido (like)
-  * Estado (activo/inactivo)
-- Validar que socio esté activo para operaciones
-
-2. GESTION DE DISCIPLINAS Y TARIFAS
------------------------------------
-- CRUD disciplinas
-- CRU tarifas --> una TARIFA NO se puede eliminar (Delete), ya que una disciplina no puede quedarse sin tarifa alguna
-- Asignar/actualizar tarifa a disciplina
-  * Validar que no tenga cuotas asociadas al cambiar tarifa
-- Listar disciplinas disponibles
-- Obtener tarifa vigente por disciplina
 
 3. GESTION DE CUOTAS
 --------------------

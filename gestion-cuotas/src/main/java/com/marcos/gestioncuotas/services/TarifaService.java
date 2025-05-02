@@ -1,7 +1,6 @@
 package com.marcos.gestioncuotas.services;
 
 import com.marcos.gestioncuotas.dtos.TarifaDTO;
-import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -10,8 +9,6 @@ import java.util.List;
  */
 
 public interface TarifaService {
-    List<TarifaDTO> getAllTarifas();
-    TarifaDTO getTarifaById(Long id);
-    TarifaDTO saveTarifa(TarifaDTO tarifa);
-    TarifaDTO updateTarifa(Long id, TarifaDTO tarifa);
+    List<TarifaDTO> findAllTarifas();
+    TarifaDTO findTarifaById(Long id);
 }

@@ -5,7 +5,6 @@ import com.marcos.gestioncuotas.entities.Tarifa;
 import com.marcos.gestioncuotas.exceptions.TarifaNotFoundException;
 import com.marcos.gestioncuotas.mappers.TarifaMapper;
 import com.marcos.gestioncuotas.repositories.TarifaRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class TarifaServiceImpl implements TarifaService {
     }
 
     @Override
-    public List<TarifaDTO> getAllTarifas() {
+    public List<TarifaDTO> findAllTarifas() {
         return tarifaRepository.findAll()
                 .stream()
                 .map(tarifaMapper::entityToDto)
@@ -34,29 +33,9 @@ public class TarifaServiceImpl implements TarifaService {
     }
 
     @Override
-    public TarifaDTO getTarifaById(Long id) {
+    public TarifaDTO findTarifaById(Long id) {
         Tarifa tarifa = tarifaRepository.findById(id)
                         .orElseThrow(() -> new TarifaNotFoundException("Tarifa no encontrada con id: " + id));
         return tarifaMapper.entityToDto(tarifa);
-    }
-
-    @Override
-    public TarifaDTO saveTarifa(TarifaDTO tarifa) {
-        Tarifa tarifaEntity = tarifaMapper.dtoToEntity(tarifa);
-        Tarifa savedTarifa = tarifaRepository.save(tarifaEntity);
-        return tarifaMapper.entityToDto(savedTarifa);
-    }
-
-    @Transactional
-    @Override
-    public TarifaDTO updateTarifa(Long id, TarifaDTO tarifa) {
-        Tarifa tarifaEntity = tarifaRepository.findById(id)
-                .orElseThrow(() -> new TarifaNotFoundException("Tarifa no encontrada con id: " + id));
-
-        tarifaEntity.setDescripcion(tarifa.getDescripcion());
-        tarifaEntity.setMonto(tarifa.getMonto());
-        Tarifa updatedTarifa = tarifaRepository.save(tarifaEntity);
-
-        return tarifaMapper.entityToDto(updatedTarifa);
     }
 }

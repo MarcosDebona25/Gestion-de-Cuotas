@@ -1,6 +1,9 @@
 package com.marcos.gestioncuotas.dtos;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 /**
  * @author Marcos Debona
@@ -13,8 +16,7 @@ import lombok.*;
 @Builder
 @EqualsAndHashCode
 public class TarifaDTO {
-    private Long id;
-    private String descripcion;
     private double monto;
-    private DisciplinaDTO disciplina;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fecha;
 }

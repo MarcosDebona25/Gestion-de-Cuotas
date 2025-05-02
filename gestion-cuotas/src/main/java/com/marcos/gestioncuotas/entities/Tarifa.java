@@ -2,6 +2,9 @@ package com.marcos.gestioncuotas.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 /**
  * @author Marcos Debona
@@ -20,9 +23,13 @@ public class Tarifa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
-    private String descripcion;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fecha;
+
     private double monto;
 
-    @OneToOne(mappedBy = "tarifa")
+    @ManyToOne
+    @JoinColumn(name = "disciplina_id", nullable = false)
     private Disciplina disciplina;
 }

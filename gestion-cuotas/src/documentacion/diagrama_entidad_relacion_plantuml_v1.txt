@@ -48,7 +48,7 @@ entity Disciplina {
 entity Tarifa {
   * id : Long <<PK>>
   --
-  descripcion : String
+  fecha : LocalDate
   monto : double
 }
 
@@ -61,7 +61,7 @@ entity cuota_disciplina {
 Socio ||--o{ Cuota : "tiene"
 Cuota }o--|| CuotaSocial : "usa"
 Cuota ||--|| Pago : "se paga con"
-Disciplina ||--|| Tarifa : "usa"
+Disciplina ||--o{ Tarifa : "usa"
 
 ' Relaciones de la tabla intermedia
 Cuota ||--o{ cuota_disciplina : ""

@@ -31,7 +31,7 @@ class Disciplina {
 
 class Tarifa {
   + Long id
-  + String descripcion
+  + LocalDate fecha
   + double monto
 }
 
@@ -60,5 +60,5 @@ Socio "1" -- "*" Cuota : tiene
 Cuota "*" -- "1" CuotaSocial : incluye >
 Cuota "1" -- "1" Pago : tiene
 Cuota "*" -- "*" Disciplina : incluye >
-Disciplina "1" -- "1" Tarifa : tiene
+Disciplina "1" -- "1..*" Tarifa : tiene >
 @enduml

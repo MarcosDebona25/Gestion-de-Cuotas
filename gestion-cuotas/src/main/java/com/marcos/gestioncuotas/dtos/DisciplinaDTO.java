@@ -13,8 +13,7 @@ import lombok.*;
 @Builder
 @EqualsAndHashCode
 public class DisciplinaDTO {
-    private Long id;
     private String nombre;
     private String descripcion;
-    private TarifaDTO tarifa;
+    private TarifaDTO tarifaDTO; // asi se crea la tarifa embebida
 }
