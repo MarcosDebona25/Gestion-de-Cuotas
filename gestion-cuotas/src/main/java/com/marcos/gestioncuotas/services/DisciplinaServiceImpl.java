@@ -107,8 +107,8 @@
             disciplinaRepository.save(disciplina);
         }
 
-        @Override
         @Transactional
+        @Override
         public List<TarifaDTO> getTarifaHistoryByDisciplinaId(Long id) {
             Disciplina disciplina = disciplinaRepository.findById(id)
                     .orElseThrow(() -> new DisciplinaNotFoundException("Disciplina no encontrada con id: " + id));

@@ -15,5 +15,5 @@ import lombok.*;
 public class DisciplinaDTO {
     private String nombre;
     private String descripcion;
-    private TarifaDTO tarifaDTO; // asi se crea la tarifa embebida
+    private TarifaDTO tarifaDTO; 
 }
