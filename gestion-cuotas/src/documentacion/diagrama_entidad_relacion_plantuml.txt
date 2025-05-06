@@ -19,7 +19,6 @@ entity Cuota {
   estado : EstadoCuota
   socio_id : Long <<FK>>
   cuota_social_id : Long <<FK>>
-  pago_id : Long <<FK>>
 }
 
 entity CuotaSocial {
@@ -32,6 +31,7 @@ entity CuotaSocial {
 entity Pago {
   * id : Long <<PK>>
   --
+  cuota_id: Long <<FK>>
   fechaPago : LocalDate
   montoPagado : double
   metodoPago : MetodoPago

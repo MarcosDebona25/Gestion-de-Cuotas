@@ -38,8 +38,7 @@ public class Cuota {
     @JoinColumn(name = "cuota_social_id")
     private CuotaSocial cuotaSocial;
 
-    @OneToOne
-    @JoinColumn(name = "pago_id")
+    @OneToOne(mappedBy = "cuota")
     private Pago pago;
 
     @ManyToMany()
@@ -47,4 +46,12 @@ public class Cuota {
                 joinColumns = @JoinColumn(name = "fk_cuota"),
                 inverseJoinColumns = @JoinColumn(name = "fk_disciplina"))
     private List<Disciplina> listaDisciplinas;
+
+    public double calcularMontoCuota() {
+        double montoCuota = 0;
+        for (Disciplina disciplina: this.getListaDisciplinas()) {
+            montoCuota+= disciplina.getMonto();
+        }
+        return montoCuota;
+    }
 }

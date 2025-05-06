@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
  * @author Marcos Debona
  */
 
-@Mapper
+@Mapper(componentModel = "string")
 public interface CuotaMapper {
     Cuota dtoToEntity (CuotaDTO cuotaDTO);
     CuotaDTO entityToDto (Cuota cuota);

@@ -17,12 +17,11 @@ import java.time.LocalDate;
 @Builder
 @EqualsAndHashCode
 public class PagoDTO {
-    private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaPago;
 
     private double montoPagado;
     private MetodoPago metodoPago;
-    private CuotaDTO cuota;
+    private Long cuotaId;
 }

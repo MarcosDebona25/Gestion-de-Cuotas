@@ -34,6 +34,19 @@ Comportamiento especial:
 - Se puede agregar una nueva tarifa a una disciplina existente, manteniendo el historial de tarifas.
 - Se puede consultar el historial de tarifas de una disciplina específica.
 
+----- GESTION DE PAGOS -----
+Operaciones: CR (Crear Pago y Leer Pago)
+Endpoints disponibles:
+- getAllPago()
+- getPagoById(Long id)
+- createPago(PagoDTO pagoDTO)
+Comportamiento especial:
+- Registrar pago de cuota: Validar que cuota esté PENDIENTE, Validar monto (debe coincidir con total), Actualizar estado de cuota a PAGADA
+- No permitir pagos parciales
+- Registrar método de pago
+- Generar comprobante (PDF) (¿Como puedo hacer esto en Java?)
+
+
 
 3. GESTION DE CUOTAS
 --------------------
@@ -48,15 +61,7 @@ Comportamiento especial:
   * No generar cuota duplicada en mismo mes
 - Cambiar estado (PENDIENTE -> PAGADA/VENCIDA)
 
-4. GESTION DE PAGOS
--------------------
-- Registrar pago de cuota:
-  * Validar que cuota esté PENDIENTE
-  * Validar monto (debe coincidir con total)
-  * Actualizar estado cuota a PAGADA
-- No permitir pagos parciales
-- Registrar método de pago
-- Generar comprobante (PDF)
+
 
 5. CONSULTAS Y REPORTES
 -----------------------

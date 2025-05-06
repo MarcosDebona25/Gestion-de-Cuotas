@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
  * @author Marcos Debona
  */
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface SocioMapper {
     Socio dtoToEntity(SocioDTO socioDTO);
     SocioDTO entityToDto(Socio socio);

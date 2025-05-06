@@ -28,4 +28,8 @@ public class Disciplina {
 
     @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL)
     private List<Tarifa> listaTarifas;
+
+    public double getMonto(){
+        return this.listaTarifas.getLast().getMonto();
+    }
 }

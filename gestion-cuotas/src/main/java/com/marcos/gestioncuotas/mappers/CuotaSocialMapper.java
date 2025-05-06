@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
  * @author Marcos Debona
  */
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CuotaSocialMapper {
     CuotaSocial dtoToEntity(CuotaSocialDTO cuotaSocialDTO);
     CuotaSocialDTO entityToDto(CuotaSocial cuotaSocial);
