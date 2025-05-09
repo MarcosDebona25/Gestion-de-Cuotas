@@ -16,6 +16,23 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiError> handleGenericException(Exception ex) {
+        ApiError error = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Error interno: " + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiError> handleValidationErrors(MethodArgumentNotValidException ex) {
+        String mensaje = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(e -> e.getField() + ": " + e.getDefaultMessage())
+                .collect(Collectors.joining("; "));
+        ApiError error = new ApiError(HttpStatus.BAD_REQUEST, mensaje);
+        return ResponseEntity.badRequest().body(error);
+    }
+
     @ExceptionHandler(PagoInvalidoException.class)
     public ResponseEntity<ApiError> handlePagoInvalido(PagoInvalidoException ex) {
         ApiError error = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
@@ -40,20 +57,27 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiError> handleValidationErrors(MethodArgumentNotValidException ex) {
-        String mensaje = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(e -> e.getField() + ": " + e.getDefaultMessage())
-                .collect(Collectors.joining("; "));
-        ApiError error = new ApiError(HttpStatus.BAD_REQUEST, mensaje);
-        return ResponseEntity.badRequest().body(error);
+    @ExceptionHandler(CuotaSocialNotFoundException.class)
+    public ResponseEntity<ApiError> handleCuotaSocialNotFound(CuotaSocialNotFoundException ex) {
+        ApiError error = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiError> handleGenericException(Exception ex) {
-        ApiError error = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Error interno: " + ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+    @ExceptionHandler(SocioNotFoundException.class)
+    public ResponseEntity<ApiError> handleSocioNotFound(SocioNotFoundException ex) {
+        ApiError error = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(SocioNotActiveException.class)
+    public ResponseEntity<ApiError> handleSocioNotActive(SocioNotActiveException ex) {
+        ApiError error = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(SocioAlreadyExistsException.class)
+    public ResponseEntity<ApiError> handleSocioAlreadyExists(SocioAlreadyExistsException ex) {
+        ApiError error = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 }

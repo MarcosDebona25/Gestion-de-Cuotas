@@ -19,6 +19,7 @@ Endpoints disponibles:
 - getAllTarifa()
 - getTarifaById(Long id)
 
+
 ----- GESTION DE DISCIPLINAS -----
 Operaciones: CRUD
 Endpoints disponibles:
@@ -34,6 +35,7 @@ Comportamiento especial:
 - Se puede agregar una nueva tarifa a una disciplina existente, manteniendo el historial de tarifas.
 - Se puede consultar el historial de tarifas de una disciplina específica.
 
+
 ----- GESTION DE PAGOS -----
 Operaciones: CR (Crear Pago y Leer Pago)
 Endpoints disponibles:
@@ -44,9 +46,38 @@ Comportamiento especial:
 - Registrar pago de cuota: Validar que cuota esté PENDIENTE, Validar monto (debe coincidir con total), Actualizar estado de cuota a PAGADA
 - No permitir pagos parciales
 - Registrar método de pago
-- Generar comprobante (PDF) (¿Como puedo hacer esto en Java?)
+- Generar comprobante (PDF) (¿Cómo puedo hacer esto en Java?)
 
 
+----- GESTION DE CUOTASOCIAL -----
+Operaciones: CRD (Crear, Leer y Borrar Cuota Social)
+Endpoints disponibles:
+- getCuotaSocialActivo()
+- getAllCuotaSocial()
+- createCuotaSocial(CuotaSocialDTO cuotaSocialDTO)
+- deleteCuotaSocial(Long id)
+Comportamiento especial:
+- El borrado es lógico, es decir, se hace activo = false
+- Cuando se crea una nueva cuota social, la anterior se desactiva (activo = false)
+- Solo puede haber 1 sola cuota social activa en el tiempo
+- En vez de modificar una cuota social, se debe crear una nueva
+- Al crear una cuota, se debe establecer la cuota social que le corresponde (el id)
+
+----- GESTION DE SOCIOS -----
+Operaciones: CRUD + Busqueda
+Endpoints disponibles:
+- getSocioById(Long id);
+- getSocioByNombre(String nombre);
+- getAllSocio();
+- createSocio(SocioDTO socioDTO);
+- updateSocio(Long id, SocioDTO socioDTO);
+- deleteSocio(Long id);
+Comportamiento especial:
+- Se puede buscar un socio por su nombre (deberia ser con LIKE también?)
+- El borrado es logico (activo = false)
+- Se verifica el estado del socio antes de realizar persistencias
+- Cuando el socio es creado, tiene lista de cuotas vacías
+- No se pueden crear socios con mismo DNI
 
 3. GESTION DE CUOTAS
 --------------------
@@ -60,7 +91,6 @@ Comportamiento especial:
   * Socio debe estar activo
   * No generar cuota duplicada en mismo mes
 - Cambiar estado (PENDIENTE -> PAGADA/VENCIDA)
-
 
 
 5. CONSULTAS Y REPORTES

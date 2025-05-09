@@ -21,6 +21,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 @ToString
 @Entity
+
 public class CuotaSocial {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -30,4 +31,6 @@ public class CuotaSocial {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaInicio;
+
+    private boolean activo;
 }

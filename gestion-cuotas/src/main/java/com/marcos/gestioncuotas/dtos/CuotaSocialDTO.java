@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @Builder
 @EqualsAndHashCode
 public class CuotaSocialDTO {
-    private Long id;
     private double monto;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
